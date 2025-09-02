@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🏫 CLASS PAANTU NIII👑</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #4361ee;
+      --success: #06d6a0;
+      --danger: #ef476f;
+      --warning: #ffd166;
+      --whatsapp: #25D366;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --border: #dee2e6;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin: 10px 0;
+      font-weight: 700;
+    }
+
+    header p {
+      color: #555;
+      font-size: 1.2rem;
+    }
+
+    /* Musik Player - Dropdown + 1 Tombol Play/Pause */
+    .audio-controls {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    .audio-controls select {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 70%;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    .audio-controls button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Button Container - Grid 2x3 */
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      padding: 18px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      height: 70px;
+    }
+
+    .btn.primary { background: var(--primary); color: white; }
+    .btn.success { background: var(--success); color: white; }
+    .btn.warning { background: var(--warning); color: var(--dark); }
+    .btn.danger { background: var(--danger); color: white; }
+    .btn.whatsapp { background: var(--whatsapp); color: white; }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 28px;
+      text-align: center;
+      border-bottom: 3px solid var(--success);
+      padding-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* List Styling */
+    .list {
+      list-style: none;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px;
+      background: #fbfdff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin: 14px 0;
+      font-size: 1.05rem;
+      transition: all 0.2s;
+    }
+
+    .list-item:hover {
+      background: #f1f5ff;
+      border-color: var(--primary);
+    }
+
+    .action-dropdown {
+      display: none;
+    }
+
+    .admin-mode .action-dropdown {
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .action-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: var(--dark);
+      padding: 14px 18px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: #f1f3f5;
+      color: var(--primary);
+    }
+
+    /* Gallery */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .photo-item {
+      position: relative;
+      width: 180px;
+      text-align: center;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    }
+
+    .photo-item p {
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .photo-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .photo-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .photo-btn.download { background: var(--success); }
+    .photo-btn.zoom { background: var(--primary); }
+    .photo-btn i { color: white; font-size: 1rem; }
+
+    /* Admin Panel */
+    .admin-forms {
+      display: grid;
+      gap: 26px;
+    }
+
+    .form-group {
+      background: #f9fbff;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+    }
+
+    .form-group h3 {
+      margin-bottom: 16px;
+      color: var(--primary);
+      font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+
+    .form-group button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .danger-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--danger);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.2rem;
+      margin-top: 30px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .copy-btn {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="user-mode">
+
+  <!-- Musik -->
+  <audio id="bgMusic"></audio>
+
+  <!-- Header -->
+  <header>
+    <h1>🏫 KELAS 8.1</h1>
+    <p>Nomor/nama/aib murid 8.1 ©Alqhifari</p>
+
+    <!-- Musik: Dropdown + 1 Tombol Play/Pause -->
+    <div class="audio-controls">
+      <select id="musicSelect" onchange="changeMusic()">
+        <option value="">🎵 Pilih Lagu</option>
+        <option value="musicalpaantu/lagu1.mp3">SURAT CINTA UNTUK STARLA</option>
+        <option value="musicalpaantu/lagu2.mp3">AKU CALON MANTU TERBAIK</option>
+        <option value="musicalpaantu/lagu3.mp3">LESUNG PIPI</option>
+      </select>
+      <button id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-play"></i> Play Musik
+      </button>
+    </div>
+  </header>
+
+  <!-- Tombol Utama - 2x3 GRID (6 tombol rapi) -->
+  <div class="button-container">
+    <button class="btn primary" onclick="showSection('students')">
+      <i class="fas fa-users"></i> Daftar Siswa
+    </button>
+    <button class="btn success" onclick="showSection('phones')">
+      <i class="fas fa-phone"></i> Nomor Telepon
+    </button>
+    <button class="btn warning" onclick="showSection('shame')">
+      <i class="fas fa-fire"></i> Aib Siswa
+    </button>
+    <button class="btn danger" onclick="adminLogin()">
+      <i class="fas fa-user-shield"></i> Admin Panel
+    </button>
+    <button class="btn whatsapp" onclick="openGroup()">
+      <i class="fab fa-whatsapp"></i> Group Paantu
+    </button>
+    <button class="btn primary" onclick="openTeacher()">
+      <i class="fas fa-chalkboard-teacher"></i> Guru (wali)
+    </button>
+  </div>
+
+  <!-- Konten -->
+  <main id="content">
+    <section id="students" class="section active">
+      <h2>📋 Daftar Siswa</h2>
+      <ul id="studentList" class="list"></ul>
+    </section>
+
+    <section id="phones" class="section">
+      <h2>📞 Nomor Telepon Siswa</h2>
+      <div id="phoneList"></div>
+    </section>
+
+    <section id="shame" class="section">
+      <h2>📸 Aib Siswa</h2>
+      <div id="shameGallery" class="gallery"></div>
+    </section>
+
+    <section id="admin" class="section">
+      <h2>🔐 Admin Panel</h2>
+      <div class="admin-forms">
+        <div class="form-group">
+          <h3><i class="fas fa-user-plus"></i> Tambah Nama Siswa</h3>
+          <input type="text" id="newStudentName" placeholder=">Nama Siswa" />
+          <button onclick="addStudentName()">➕ Tambah</button>
+        </div>
+
+        <div class="form-group">
+          <h3><i class="fas fa-phone-alt"></i> Tambah Nomor Telepon</h3>
+          <input type="text" id="newPhone" placeholder="Contoh: 08829882919 ALQHIFARI" />
+          <button onclick="addPhoneNumber()">➕ Tambah</button>
+        </div>
+
+        <div class="form-group">
+          <h3><i class="fas fa-camera"></i> Tambah Link Foto Aib</h3>
+          <input type="url" id="newPhotoUrl" placeholder="https://contoh.com/foto.jpg" />
+          <input type="text" id="newPhotoName" placeholder="Nama Siswa (untuk caption)" />
+          <button onclick="addPhotoUrl()">➕ Tambah</button>
+        </div>
+
+        <button onclick="clearAllData()" class="danger-btn">
+          🗑️ Hapus Semua Data
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const ADMIN_PASSWORD = "paantu2025";
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicSelect = document.getElementById('musicSelect');
+
+    // Link WhatsApp
+    const GROUP_WA = "https://chat.whatsapp.com/IiGE6WskSGHDF5mvJFhObl?mode=ems_copy_t";
+    const TEACHER_WA = "https://wa.me/6283172299914";
+        const NGL = "https://ngl.link/paantuu18557"; 
+
+    // Buka Group WhatsApp
+    function openGroup() {
+      window.open(GROUP_WA, '_blank');
+    }
+
+    // Buka Chat Guru via WhatsApp
+    function openTeacher() {
+      window.open(TEACHER_WA, '_blank');
+    }
+    
+        // Buka Chat Guru via WhatsApp
+    function openNgl() {
+      window.open(NGL, '_blank');
+    }
+
+    // Ganti Musik
+    function changeMusic() {
+      const src = musicSelect.value;
+      if (!src) return;
+      bgMusic.src = src;
+      musicBtn.innerHTML = '<i class="fas fa-play"></i> Play Musik';
+    }
+
+    // Toggle Play/Pause
+    function toggleMusic() {
+      if (!bgMusic.src) {
+        alert("Pilih lagu dulu dari dropdown!");
+        return;
+      }
+      if (bgMusic.paused || bgMusic.ended) {
+        bgMusic.play().then(() => {
+          musicBtn.innerHTML = '<i class="fas fa-pause"></i> Pause Musik';
+        }).catch(err => {
+          alert("Gagal mainkan musik. File mungkin tidak ditemukan.");
+        });
+      } else {
+        bgMusic.pause();
+        musicBtn.innerHTML = '<i class="fas fa-play"></i> Play Musik';
+      }
+    }
+
+    // Auto-play lagu pertama saat load
+    window.addEventListener('load', () => {
+      if (musicSelect.value) bgMusic.src = musicSelect.value;
+    });
+
+    // Admin Login
+    function adminLogin() {
+      const pass = prompt("🔐 Masukkan password admin:");
+      if (pass === ADMIN_PASSWORD) {
+        document.body.className = 'admin-mode';
+        alert("✅ Login berhasil! Mode Admin aktif.");
+        showSection('admin');
+      } else {
+        alert("❌ Password salah!");
+      }
+    }
+
+    // Tampilkan Section
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'students') loadStudentNames();
+      if (id === 'phones') loadPhoneNumbers();
+      if (id === 'shame') loadPhotos();
+    }
+
+    // === DATA ===
+    function getNames() { return JSON.parse(localStorage.getItem('studentNames')) || []; }
+    function getPhones() { return JSON.parse(localStorage.getItem('phoneNumbers')) || []; }
+    function getPhotos() { return JSON.parse(localStorage.getItem('aibPhotos')) || []; }
+
+    function saveNames(arr) { localStorage.setItem('studentNames', JSON.stringify(arr)); }
+    function savePhones(arr) { localStorage.setItem('phoneNumbers', JSON.stringify(arr)); }
+    function savePhotos(arr) { localStorage.setItem('aibPhotos', JSON.stringify(arr)); }
+
+    // === TAMBAH ===
+    function addStudentName() {
+      const name = document.getElementById('newStudentName').value.trim();
+      if (!name) return alert("Nama wajib diisi!");
+      const names = getNames();
+      if (names.some(n => n.toLowerCase() === name.toLowerCase())) {
+        return alert("❌ Siswa sudah ada!");
+      }
+      names.push(name);
+      saveNames(names);
+      alert(`✅ ${name} ditambahkan.`);
+      document.getElementById('newStudentName').value = '';
+      loadStudentNames();
+    }
+
+    function addPhoneNumber() {
+      const phone = document.getElementById('newPhone').value.trim();
+      if (!phone) return alert("Isi nomor + nama!");
+      const phones = getPhones();
+      if (phones.includes(phone)) {
+        return alert("❌ Nomor sudah ada!");
+      }
+      phones.push(phone);
+      savePhones(phones);
+      alert("✅ Nomor ditambahkan.");
+      document.getElementById('newPhone').value = '';
+      loadPhoneNumbers();
+    }
+
+    function addPhotoUrl() {
+      const url = document.getElementById('newPhotoUrl').value.trim();
+      const name = document.getElementById('newPhotoName').value.trim();
+      if (!url || !name) return alert("Isi link dan nama!");
+      const photos = getPhotos();
+      if (photos.some(p => p.url === url)) {
+        return alert("❌ Foto sudah ditambahkan!");
+      }
+      photos.push({ url, name });
+      savePhotos(photos);
+      alert("✅ Foto ditambahkan.");
+      document.getElementById('newPhotoUrl').value = '';
+      document.getElementById('newPhotoName').value = '';
+      loadPhotos();
+    }
+
+    // === LOAD ===
+    function loadStudentNames() {
+      const list = document.getElementById('studentList');
+      list.innerHTML = '';
+      getNames().forEach((name, i) => {
+        const li = document.createElement('li');
+        li.className = 'list-item';
+        li.innerHTML = `
+          <span>${name}</span>
+          <div class="action-dropdown">
+            <button class="dropbtn">⋮ Hapus</button>
+            <div class="dropdown-content">
+              <a href="#" onclick="event.preventDefault(); deleteName(${i});">🗑️ Hapus</a>
+            </div>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function loadPhoneNumbers() {
+      const cont = document.getElementById('phoneList');
+      cont.innerHTML = '';
+      getPhones().forEach((phone, i) => {
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.innerHTML = `
+          <span>${phone}</span>
+          <div>
+            <button class="copy-btn" onclick="salin('${phone}')">📋 Salin</button>
+            <div class="action-dropdown">
+              <button class="dropbtn">⋮</button>
+              <div class="dropdown-content">
+                <a href="#" onclick="event.preventDefault(); deletePhone(${i});">🚫 Hapus</a>
+              </div>
+            </div>
+          </div>
+        `;
+        cont.appendChild(div);
+      });
+    }
+
+    function loadPhotos() {
+      const gal = document.getElementById('shameGallery');
+      gal.innerHTML = '';
+      getPhotos().forEach((p, i) => {
+        const item = document.createElement('div');
+        item.className = 'photo-item';
+        item.innerHTML = `
+          <img src="${p.url}" alt="Aib ${p.name}">
+          <p>${p.name}</p>
+          <div class="photo-actions">
+            <button class="photo-btn download" onclick="downloadPhoto('${p.url}', '${p.name}')">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="photo-btn zoom" onclick="zoomPhoto('${p.url}')">
+              <i class="fas fa-search-plus"></i>
+            </button>
+          </div>
+        `;
+        gal.appendChild(item);
+      });
+    }
+
+    // === HAPUS ===
+    function deleteName(i) {
+      if (confirm("Hapus siswa ini?")) {
+        const names = getNames();
+        names.splice(i, 1);
+        saveNames(names);
+        loadStudentNames();
+      }
+    }
+
+    function deletePhone(i) {
+      const phones = getPhones();
+      phones.splice(i, 1);
+      savePhones(phones);
+      loadPhoneNumbers();
+    }
+
+    function deletePhoto(i) {
+      const photos = getPhotos();
+      photos.splice(i, 1);
+      savePhotos(photos);
+      loadPhotos();
+    }
+
+    // === LAINNYA ===
+    function salin(text) {
+      navigator.clipboard.writeText(text).then(() => alert("✅ Disalin!"));
+    }
+
+    function downloadPhoto(url, name) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${name}_aib.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function zoomPhoto(url) {
+      window.open(url, '_blank', 'width=800,height=600,resizable=yes,scrollbars=yes');
+    }
+
+    function clearAllData() {
+      const confirm = prompt('⚠️ Ketik "HAPUS SEMUA" untuk konfirmasi:');
+      if (confirm === "HAPUS SEMUA") {
+        localStorage.clear();
+        alert("🗑️ Semua data dihapus.");
+        location.reload();
+      }
+    }
+
+    // Load awal
+    loadStudentNames();
+  </script>
+</body>
+</html>
